@@ -125,14 +125,10 @@ void step3()
 {
 	int i,j;									//The usual Loop variables
 	int i1;									//to be used inside the loop to avoid illegal modification of i
-	struct tuple row_n_assigned_count[n]={{0},{0},{0}},col_n_assigned_count[n]={{0},{0},{0}};//Array to keep the count of 0 elements
+	struct tupule row_status[n],col_status[n];//Array to keep the count of 0 elements
 	int i_point,j_point;					//stores the i'th and j'th value of the lone 0 element 
 
-	void 3a();								//
-	
-	3a();
-	
-	void 3a()
+	void a()
 	{
 /*3.a.i: Examine all the rows having exactly one zero element */
 		for (i = 0; i < n; i += 1)
@@ -143,14 +139,14 @@ void step3()
 			{
 				if(cell[i][j].state == nassigned) 
 				{
-					row_n_assigned_count[i]++;  //incremented upon encountering an unassigned 0
+					row_status[i].nassigned_count++;  //incremented upon encountering an unassigned 0
 					i_point=i;j_point=j;		//store the address of the unassigned 0 element
 				}
 			}
 /*If there is only one unassigned 0(count of unassigned 0's found by n_assigned _count[]) in the Row then: 
 (1)assign it 
 (2)cross the 0's in the column of the candidate cell*/
-			if (n_assigned_count[i]==1)
+			if (row_status[i].nassigned_count==1)
 			{
 //(1)		
 				cell[i_point][j_point].state=assigned;
@@ -170,6 +166,7 @@ void step3()
 			}
 		}
 	}
-}			
+}
+			
 
 
