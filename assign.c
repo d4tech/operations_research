@@ -179,16 +179,16 @@ void step3()
 			}				
 		}
 	}
-/*/* Columnwise	
+/* Columnwise */	
 	for (i = 0; i < n; i += 1)
 	{
 		col_status[i].nassigned_count=0;
 		col_status[i].assigned_count=0;
 		col_status[i].crossed_count=0;
-	 /*	Loop to count the no of unssigned 0 elements in a Row
+	 /*	Loop to count the no of unssigned 0 elements in a Column*/
 		for (j = 0; j < n; j += 1)
 		{
-			switch (cell[i][j].state)
+			switch (cell[j][i].state)
 			{
 				case 1:
 					col_status[i].crossed_count++;
@@ -198,31 +198,29 @@ void step3()
 					break;
 				case 3:
 					col_status[i].nassigned_count++;
-					i_point=i;
-					j_point=j;
+					i_point=j;
+					j_point=i;
 					break;
 					
 			}
 		}
 /*If there is only one unassigned 0(count of unassigned 0's found by n_assigned _count[]) in the Row then: 
 (1)assign it 
-(2)cross the 0's in the column of the candidate cell
+(2)cross the 0's in the Rows of the candidate cell*/
 		if ( col_status[i].nassigned_count == 1)
 		{
 //(1)		
 			cell[i_point][j_point].state=assigned;
-				 		
-//(2)Starting from the cell right under the candidate cell			
-			i1 = i_point+1;
+//(2)		
 			for ( j = 0; j < n; j++)
 			{
 				if( j!=j_point && cell[i][j].state==nassigned)
 				{
-					cell[i][j].state=crossed;	
+					cell[i_point][j].state=crossed;	
 				}	
 			}				
 		}
-	}*/
+	}
 }
 	
 
