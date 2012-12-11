@@ -16,7 +16,11 @@ struct block
 	enum flag state; 
 };
 
-struct block cell[4][4];
+struct block cell[4][4];/*={
+{12,0},{30,0},{21,0},{15,0},
+{18,0},{33,0},{9,0},{21,0},
+{44,0},{25,0},{21,0},{21,0},
+{14,0},{30,0},{28,0},{14,0}};*/
 
 int check(int);
 
@@ -131,14 +135,7 @@ void step3()
 	struct tupule row_status[n],col_status[n];//Array to keep the count of 0 elements
 	int i_point,j_point;					//stores the i'th and j'th value of the lone 0 element 
 
-	/*for (i = 0; i < n; i++)
-	{
-		row_status[i].nassigned_count=0;
-		row_status[i].assigned_count=0;
-		row_status[i].crossed_count=0;
-		
-	}*/
-	
+
 /*3.a.i: Examine all the rows having exactly one zero element */
 	for (i = 0; i < n; i += 1)
 	{
@@ -150,30 +147,38 @@ void step3()
 		{
 			switch (cell[i][j].state)
 			{
-				case nassigned:
-					row_status[i].nassigned_count++;
+				case 1:
+					row_status[i].crossed_count++;
 					break;
-				case assigned:
+				case 2:
 					row_status[i].assigned_count++;
 					break;
-				case crossed:
-					row_status[i].crossed_count++;
-					break;	
+				case 3:
+					row_status[i].nassigned_count++;
+					i_point=i;
+					j_point=j;
+					break;
+					
 			}
 		}
 /*If there is only one unassigned 0(count of unassigned 0's found by n_assigned _count[]) in the Row then: 
 (1)assign it 
 (2)cross the 0's in the column of the candidate cell*/
-		if ( row_status[i].nassigned_count == 1 /*&& 
-		cell[i_point][j_point].state != crossed && 
-		cell[i_point][j_point].state != assigned &&
-		cell[i_point][j_point].state != nz*/ )
+		if ( row_status[i].nassigned_count == 1)
 		{
 //(1)		
 			cell[i_point][j_point].state=assigned;
 				 		
 //(2)Starting from the cell right under the candidate cell			
-			for (i1 = i_point+1; i1 != i_point; i1 += 1)	
+			i1 = i_point+1;
+			for ( j = 0; j < n; j++)
+			{
+				if( j!=j_point && cell[i][j].state==nassigned)
+				{
+					cell[i][j].state=crossed;	
+				}	
+			}
+			/*while(i1 != i_point)	
 			{
 				if(i1==n)
 					i1=0;
@@ -185,12 +190,13 @@ void step3()
 				{
 					printf("\n\nERROR: AN ASSIGNMENT AT CELL[%d][%d] WAS DISCOVERED WHILE TRYING TO ASSIGN CELL[%d][%d]",i1,j_point,i_point,j_point);
 				}
-					
-			}
+				i1++;
+				print("%d\n",i1);	
+			}*/
 						
 		}
 	}
-}	
+}
 	
 /*	void b()*/
 /*	{*/
