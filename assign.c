@@ -153,7 +153,7 @@ void step3()
 				case 2:
 					row_status[i].assigned_count++;
 					break;
-				case 3:
+				case 3:				
 					row_status[i].nassigned_count++;
 					i_point=i;
 					j_point=j;
@@ -170,6 +170,49 @@ void step3()
 			cell[i_point][j_point].state=assigned;
 				 		
 //(2)Starting from the cell right under the candidate cell			
+			for ( j = 0; j < n; j++)
+			{
+				if( j!=i_point && cell[j][j_point].state==nassigned)
+				{
+					cell[j][j_point].state=crossed;	
+				}	
+			}				
+		}
+	}
+/*/* Columnwise	
+	for (i = 0; i < n; i += 1)
+	{
+		col_status[i].nassigned_count=0;
+		col_status[i].assigned_count=0;
+		col_status[i].crossed_count=0;
+	 /*	Loop to count the no of unssigned 0 elements in a Row
+		for (j = 0; j < n; j += 1)
+		{
+			switch (cell[i][j].state)
+			{
+				case 1:
+					col_status[i].crossed_count++;
+					break;
+				case 2:
+					col_status[i].assigned_count++;
+					break;
+				case 3:
+					col_status[i].nassigned_count++;
+					i_point=i;
+					j_point=j;
+					break;
+					
+			}
+		}
+/*If there is only one unassigned 0(count of unassigned 0's found by n_assigned _count[]) in the Row then: 
+(1)assign it 
+(2)cross the 0's in the column of the candidate cell
+		if ( col_status[i].nassigned_count == 1)
+		{
+//(1)		
+			cell[i_point][j_point].state=assigned;
+				 		
+//(2)Starting from the cell right under the candidate cell			
 			i1 = i_point+1;
 			for ( j = 0; j < n; j++)
 			{
@@ -177,73 +220,12 @@ void step3()
 				{
 					cell[i][j].state=crossed;	
 				}	
-			}
-			/*while(i1 != i_point)	
-			{
-				if(i1==n)
-					i1=0;
-				else if (cell[i1][j_point].state==nassigned)
-				{
-					cell[i1][j_point].state=crossed;
-				}
-				else if (cell[i1][j_point].state==assigned)
-				{
-					printf("\n\nERROR: AN ASSIGNMENT AT CELL[%d][%d] WAS DISCOVERED WHILE TRYING TO ASSIGN CELL[%d][%d]",i1,j_point,i_point,j_point);
-				}
-				i1++;
-				print("%d\n",i1);	
-			}*/
-						
+			}				
 		}
-	}
+	}*/
 }
 	
-/*	void b()*/
-/*	{*/
-/*			/*3.b Assignemnt columnwise**/
-/*		for (j = 0; j < n; j += 1)*/
-/*		{*/
-/*				*/
-/*	/*	Loop to count the no of unssigned 0 elements in a Column**/
-/*			for (i = 0; i < n; i += 1)*/
-/*			{*/
-/*				if(cell[i][j].state == nassigned) */
-/*				{*/
-/*					col_status[j].nassigned_count++;  //incremented upon encountering an unassigned 0*/
-/*					i_point=i;j_point=j;		//store the address of the unassigned 0 element*/
-/*				}*/
-/*			}*/
-/*/*If there is only one unassigned 0(count of unassigned 0's found by n_assigned _count[]) in the Column then: */
-/*(1)assign it */
-/*(2)cross the 0's in the column of the candidate cell**/
-/*			if (*/
-/*			col_status[i].nassigned_count==1 && */
-/*			cell[i_point][j_point].state!=crossed && */
-/*			cell[i_point][j_point].state!=assigned &&*/
-/*			cell[i_point][j_point].state!=nz*/
-/*			)*/
-/*			{*/
-/*//(1)		*/
-/*				cell[i_point][j_point].state=assigned;*/
-/*//(2)Starting from the cell right next the candidate cell			*/
-/*				for (i1 = j_point+1; i1 != j_point; i1 += 1)	*/
-/*				{*/
-/*					if(i1==n)*/
-/*						i1=0;*/
-/*					else if (cell[i_point][i1].state==nassigned)*/
-/*					{*/
-/*						cell[i_point][i1].state=crossed;*/
-/*					}*/
-/*					else if (cell[i_point][i1].state==assigned)*/
-/*					{*/
-/*						printf("\n\nERROR: AN ASSIGNMENT AT CELL[%d][%d] WAS DISCOVERED WHILE TRYING TO ASSIGN CELL[%d][%d]",i_point,i1,i_point,j_point);*/
-/*					}*/
-/*					*/
-/*				*/
-/*				}*/
-/*			} */
-/*		}*/
-/*	}*/
+
 
 			
 
