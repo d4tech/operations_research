@@ -16,7 +16,7 @@ struct block
 	enum flag state; 
 };
 
-struct block cell[4][4];
+struct block cell[4][4],question[4][4];
 
 int check(int);
 
@@ -38,10 +38,12 @@ void main()
 		{
 			printf(" ");
 			scanf("%d",&cell[i][j].value);
-			cell[i][j].state=check(cell[i][j].value);	
+			cell[i][j].state=check(cell[i][j].value);
+			question[i][j]=cell[i][j];
 		}
 		printf("\n");
 	}
+
 	print();
 	step1();
 //	print();
@@ -126,7 +128,7 @@ int check(int i)
 
 void optimalitytest()
 {
-	int i,j,sum_ROW,sum_COL;
+	int i,j,sum=0,sum_ROW,sum_COL;
 	struct tupule row_status[n],col_status[n];//Array to keep the count of 0 elements
 
 	for (i = 0; i < n; i += 1)
@@ -189,6 +191,18 @@ void optimalitytest()
 	if( sum_COL==4 && sum_ROW == 4)
 	{
 		printf("\n\n The Solution is optiaml\n");
+		for (i = 0; i < n; i++)
+		{
+			for (j = 0; j < n; j++)
+			{
+				if(cell[i][j].state==assigned)
+				{
+					printf("\n%d",question[i][j].value);
+					sum += question[i][j].value;
+				}
+			}
+		}
+		printf("\nThe Total cost is: %d\n",sum);
 		exit(0);
 	}
 
