@@ -24,6 +24,7 @@ void print();
 void step1();
 void step2();
 void step3();
+void optimalitytest();
 
 
 void main()
@@ -48,6 +49,7 @@ void main()
 /*	print();*/
 	step3();
 	print();
+	optimalitytest();
 }
 
 
@@ -122,6 +124,75 @@ int check(int i)
 		{return nz;}	
 }
 
+void optimalitytest()
+{
+	int i,j,sum_ROW,sum_COL;
+	struct tupule row_status[n],col_status[n];//Array to keep the count of 0 elements
+
+	for (i = 0; i < n; i += 1)
+	{
+		row_status[i].nassigned_count=0;
+		row_status[i].assigned_count=0;
+		row_status[i].crossed_count=0;
+	 /*	Loop to count the no of unssigned 0 elements in a Row*/
+		for (j = 0; j < n; j += 1)
+		{
+			switch (cell[i][j].state)
+			{
+				case 1:
+					row_status[i].crossed_count++;
+					break;
+				case 2:
+					row_status[i].assigned_count++;
+					break;
+				case 3:				
+					row_status[i].nassigned_count++;
+					break;
+					
+			}
+		}
+	}
+	
+	for (i = 0; i < n; i += 1)
+	{
+		col_status[i].nassigned_count=0;
+		col_status[i].assigned_count=0;
+		col_status[i].crossed_count=0;
+	 /*	Loop to count the no of unssigned 0 elements in a Column*/
+		for (j = 0; j < n; j += 1)
+		{
+			switch (cell[j][i].state)
+			{
+				case 1:
+					col_status[i].crossed_count++;
+					break;
+				case 2:
+					col_status[i].assigned_count++;
+					break;
+				case 3:
+					col_status[i].nassigned_count++;
+					break;
+					
+			}
+		}
+	}
+
+
+	sum_ROW = sum_COL = 0;
+
+	for (i = 0; i < n; i++)
+	{
+		sum_ROW = sum_ROW + row_status[i].assigned_count;
+		sum_COL = sum_COL + col_status[i].assigned_count;
+	}
+
+	if( sum_COL==4 && sum_ROW == 4)
+	{
+		printf("\n\n The Solution is optiaml\n");
+		exit(0);
+	}
+
+}
 
 void step3()
 
